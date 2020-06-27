@@ -4,7 +4,6 @@ const count = document.getElementById('count')
 const total = document.getElementById('price')
 const buyBtn = document.querySelector('.confirm-btn')
 
-//Selection of the movie
 const movieSelect = document.getElementById('movie')
 let ticketPrice = +movieSelect.value
 
