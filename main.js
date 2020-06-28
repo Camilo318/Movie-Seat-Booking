@@ -31,4 +31,34 @@ movieSelect.addEventListener('change', (e) => {
 })
 
 
+//SWAL- Buying option
+
+buyBtn.addEventListener('click', () => {
+    //Getting the movie title
+    const movieTitle = movieSelect[movieSelect.selectedIndex].innerText
+    //Getting the selected seats
+    const selectedSeats = document.querySelectorAll('.row .seat.selected')
+    const spots = selectedSeats.length
+    if (spots > 0) {
+        swal({
+            title: 'Confirm Movie And Payment',
+            text: `${movieTitle}\n
+            Spots: ${spots}
+            Total Payment: ${spots*ticketPrice}`,
+            icon: 'warning',
+            buttons: true
+        }).then(value => { //If the tickets were purchased
+            if (value) {
+                swal('Tickets Purchased!', 'Enjoy the movie 😃🍿', 'success')
+                //Removing the selected class
+                selectedSeats.forEach(seat => seat.className = 'seat occupied')
+                //Reseting the info
+                updateSelection()
+            }
+        })   
+    } else {
+        swal('No seats selected', 'Please select some seats', 'error')
+    }
+})
+
 
