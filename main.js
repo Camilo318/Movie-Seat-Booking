@@ -32,7 +32,7 @@ function openCinema() {
     function updateSelection() {
         const selectedSeats = document.querySelectorAll('.row .seat.selected')
         count.innerText = selectedSeats.length
-        total.innerText = selectedSeats.length * ticketPrice
+        total.innerText = selectedSeats.length * ticketPrice + '$'
     }
 
     //Detects clicks on the seats
@@ -54,14 +54,14 @@ function openCinema() {
 
     buyBtn.addEventListener('click', () => {
         //Getting the movie title
-        const movieTitle = movieSelect[movieSelect.selectedIndex].innerText
+        const movieTitle = movieSelect[movieSelect.selectedIndex].dataset.name
         //Getting the selected seats
         const selectedSeats = document.querySelectorAll('.row .seat.selected')
         const spots = selectedSeats.length
         if (spots > 0) {
             swal({
                 title: 'Confirm Movie And Payment',
-                text: `${movieTitle}\n
+                text: `${movieTitle}
                 Spots: ${spots}
                 Total Payment: ${spots*ticketPrice}`,
                 icon: 'warning',
