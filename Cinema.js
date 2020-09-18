@@ -10,7 +10,9 @@ class Cinema {
 
     setSeats(seat, movieIndex) {
         const seatIndex = this.seats.indexOf(seat)
-        this.movies[movieIndex].seats.push(seatIndex)
+        seatIndex in this.movies[movieIndex].seats
+        ? this.movies[movieIndex].seats.splice(seatIndex, 1)
+        : this.movies[movieIndex].seats.splice(seatIndex, 0 , seatIndex)
         console.log(this.movies[movieIndex].seats)
     
     }
@@ -20,11 +22,22 @@ class Cinema {
         this.setSeats(seat, movieIndex)
     }
 
+    showSeats(index) {
+        console.log(this.movies[index])
+        this.seats.forEach(seat => {
+            seat.classList.remove('selected')
+        })
+        this.movies[index].seats.forEach(spot => {
+            this.seats[spot].classList.add('selected')
+        })
+    }
+
     updateSelection(ticketPrice) {
         this.selectedSeats = document.querySelectorAll('.row .seat.selected')
         this.count.innerText = this.selectedSeats.length
         this.total.innerText = '$' + this.selectedSeats.length * ticketPrice
     }
+
 
     buyTickets(movieTitle, selectedSeats, spots, ticketPrice) {
         if (spots > 0) {

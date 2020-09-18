@@ -28,6 +28,7 @@ function openCinema() {
     movieSelect.addEventListener('change', (e) => {
         ticketPrice = e.target.value
         cinema.updateSelection(ticketPrice)
+        cinema.showSeats(movieSelect.selectedIndex)
     })
 
     //SWAL- Buying option
@@ -40,25 +41,4 @@ function openCinema() {
         
     })
     
-    //     if (spots > 0) {
-    //         swal({
-    //             title: 'Confirm Movie And Payment',
-    //             text: `${movieTitle}
-    //             Spots: ${spots}
-    //             Total Payment: ${spots*ticketPrice}`,
-    //             icon: 'warning',
-    //             buttons: true
-    //         }).then(value => { //If the tickets were purchased
-    //             if (value) {
-    //                 swal('Tickets Purchased!', 'Enjoy the movie 😃🍿', 'success')
-    //                 //Removing the selected class
-    //                 selectedSeats.forEach(seat => seat.className = 'seat occupied')
-    //                 //Reseting the info
-    //                 updateSelection()
-    //             }
-    //         })   
-    //     } else {
-    //         swal('No seats selected', 'Please select some seats', 'error')
-    //     }
-    // })
 }
