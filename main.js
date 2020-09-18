@@ -38,7 +38,11 @@ function openCinema() {
         const selectedSeats = document.querySelectorAll('.row .seat.selected')
         const spots = selectedSeats.length
         cinema.buyTickets(movieTitle, selectedSeats, spots, ticketPrice)
-        
     })
-    
+
+    deleteBtn.addEventListener('click', () => {
+        const occupiedSeats = document.querySelectorAll('.row .seat.occupied')
+        cinema.deleteSeats(occupiedSeats)
+
+    })
 }

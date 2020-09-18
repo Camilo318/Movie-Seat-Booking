@@ -51,14 +51,27 @@ class Cinema {
             })
             .then(value => {
                 if (value) {
-                    swal('Tickets Purchased!', 'Enjoy the movie 😃🍿', 'success')
+                    swal('Tickets Purchased!',
+                    'Enjoy the movie 😃🍿',
+                    'success')
+                    selectedSeats.forEach(seat => {
+                        seat.className = 'seat occupied'
+                    })
+                    this.updateSelection(ticketPrice)
                 }
-
-                selectedSeats.forEach(seat => {
-                    seat.className = 'seat occupied'
-                })
-                this.updateSelection(ticketPrice)
             })
+        } else {
+            swal('No seats selected',
+            'Please select some seats',
+            'error')
         }
+    }
+
+    deleteSeats(seats) {
+        seats.forEach(seat => {
+            seat.classList.remove('occupied')
+        })
+        seats = []
+        console.log(seats)
     }
 }
