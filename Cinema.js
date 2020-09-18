@@ -1,24 +1,27 @@
 class Cinema {
     constructor(movies, seats) {
         this.movies = movies
-        this.seats = seats
+        this.seats = [...seats]
         this.count = document.querySelector('#count')
         this.total = document.querySelector('#price')
         this.selectedSeat = []
         console.log(this)
     }
 
-    setSeats() {
-
+    setSeats(seat, movieIndex) {
+        const seatIndex = this.seats.indexOf(seat)
+        this.movies[movieIndex].seats.push(seatIndex)
+        console.log(this.movies[movieIndex].seats)
+    
     }
 
-    selectSeat(seat) {
+    selectSeat(seat , movieIndex) {
         seat.classList.toggle('selected')
+        this.setSeats(seat, movieIndex)
     }
 
     updateSelection(ticketPrice) {
         this.selectedSeats = document.querySelectorAll('.row .seat.selected')
-        console.log(this.selectedSeats)
         this.count.innerText = this.selectedSeats.length
         this.total.innerText = '$' + this.selectedSeats.length * ticketPrice
     }

@@ -20,7 +20,7 @@ function openCinema() {
     //Detects clicks on the seats
     container.addEventListener('click', e => {
         if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
-            cinema.selectSeat(e.target)
+            cinema.selectSeat(e.target, movieSelect.selectedIndex)
             cinema.updateSelection(ticketPrice)
         }
     })
