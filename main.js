@@ -28,17 +28,11 @@ function openCinema() {
         cinema.showSeats(movieSelect.selectedIndex)
     })
 
-    //SWAL- Buying option
-
     buyBtn.addEventListener('click', () => {
-        const selectedSeats = document.querySelectorAll('.row .seat.selected')
-        const spots = selectedSeats.length
-        cinema.buyTickets(movieSelect.selectedIndex, selectedSeats, spots)
+        cinema.buyTickets(movieSelect.selectedIndex)
     })
 
     deleteBtn.addEventListener('click', () => {
-        const occupiedSeats = document.querySelectorAll('.row .seat.occupied')
         cinema.deleteSeats(movieSelect.selectedIndex)
-
     })
 }

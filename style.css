@@ -62,7 +62,6 @@ body {
     border: 1px solid black;
 }
 .row .seat:not(.occupied):hover {
-    transform: scale(1.1);
     cursor: pointer;
 }
 .seat {
@@ -123,7 +122,7 @@ body {
     outline: none;
     border: none;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: all 0.3s;
     margin: 10px;
 }
@@ -152,5 +151,8 @@ body {
     }
     .screen {
         height: 120px;
+    }
+    .btn {
+        font-size: 1.1rem;
     }
 }

@@ -11,19 +11,15 @@ class Cinema {
         const seatIndex = this.seats.indexOf(seat)
         seatIndex in this.movies[movieIndex].seats
         ? this.movies[movieIndex].seats.splice(seatIndex, 1)
-        : this.movies[movieIndex].seats.splice(seatIndex, 0 , seatIndex)
-        console.log(this.movies[movieIndex].seats)
-    
+        : this.movies[movieIndex].seats.splice(seatIndex, 0, seatIndex)
     }
 
     selectSeat(seat , movieIndex) {
-        seat.classList.toggle('selected')
         this.setSeats(seat, movieIndex)
-        this.updateSelection(this.movies[movieIndex].price)
+        this.showSeats(movieIndex)
     }
 
     showSeats(index) {
-        console.log(this.movies[index])
         this.seats.forEach(seat => {
             seat.classList.remove('selected')
             seat.classList.remove('occupied')
@@ -32,10 +28,11 @@ class Cinema {
             this.seats[spot].classList.add('selected')
         })
         this.movies[index].occupiedSeats.forEach(spot => {
-           spot.className = 'seat occupied'
+            this.seats[spot].className = 'seat occupied'
         })
         this.updateSelection(this.movies[index].price)
-
+        
+        console.log(this.movies[index])
     }
 
     updateSelection(price) {
@@ -44,16 +41,15 @@ class Cinema {
         this.total.innerText = '$' + this.selectedSeats.length * price
     }
 
-
-    buyTickets(index, selectedSeats, spots) {
-        const {name: movieTitle, price: ticketPrice, occupiedSeats: seats} = this.movies[index]
-        //What a object destructuring 😉
+    buyTickets(index) {
+        const {name, price, seats} = this.movies[index]
+        const spots = seats.length
         if (spots > 0) {
             swal({
                 title: 'Confirm Movie And Payment',
-                text: `${movieTitle}
+                text: `${name}
                 Spots: ${spots}
-                Total Payment: ${spots*ticketPrice}`,
+                Total Payment: ${spots*price}`,
                 icon: 'warning',
                 buttons: true
             })
@@ -62,12 +58,12 @@ class Cinema {
                     swal('Tickets Purchased!',
                     'Enjoy the movie 😃🍿',
                     'success')
-                    seats.push(...selectedSeats)
+                    this.movies[index].occupiedSeats.push(...seats)
                     this.showSeats(index)
-                    this.updateSelection(ticketPrice)
                 }
             })
-        } else {
+        }
+        else {
             swal('No seats selected',
             'Please select some seats',
             'error')
