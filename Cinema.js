@@ -5,7 +5,6 @@ class Cinema {
         this.count = document.querySelector('#count')
         this.total = document.querySelector('#price')
         this.selectedSeat = []
-        console.log(this)
     }
 
     setSeats(seat, movieIndex) {
@@ -27,9 +26,13 @@ class Cinema {
         console.log(this.movies[index])
         this.seats.forEach(seat => {
             seat.classList.remove('selected')
+            seat.classList.remove('occupied')
         })
         this.movies[index].seats.forEach(spot => {
             this.seats[spot].classList.add('selected')
+        })
+        this.movies[index].occupiedSeats.forEach(spot => {
+           spot.className = 'seat occupied'
         })
         this.updateSelection(this.movies[index].price)
 
@@ -43,7 +46,7 @@ class Cinema {
 
 
     buyTickets(index, selectedSeats, spots) {
-        const { name:movieTitle, price:ticketPrice } = this.movies[index]
+        const { name:movieTitle, price:ticketPrice, occupiedSeats } = this.movies[index]
         if (spots > 0) {
             swal({
                 title: 'Confirm Movie And Payment',
@@ -61,6 +64,7 @@ class Cinema {
                     selectedSeats.forEach(seat => {
                         seat.className = 'seat occupied'
                     })
+                    occupiedSeats.push(...selectedSeats)
                     this.updateSelection(ticketPrice)
                 }
             })
@@ -71,11 +75,9 @@ class Cinema {
         }
     }
 
-    deleteSeats(seats) {
+    deleteSeats(seats, index) {
         seats.forEach(seat => {
             seat.classList.remove('occupied')
         })
-        seats = []
-        console.log(seats)
     }
 }

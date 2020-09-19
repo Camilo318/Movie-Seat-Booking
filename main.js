@@ -38,7 +38,7 @@ function openCinema() {
 
     deleteBtn.addEventListener('click', () => {
         const occupiedSeats = document.querySelectorAll('.row .seat.occupied')
-        cinema.deleteSeats(occupiedSeats)
+        cinema.deleteSeats(occupiedSeats, movieSelect.selectedIndex)
 
     })
 }
