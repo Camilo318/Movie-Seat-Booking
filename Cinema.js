@@ -7,16 +7,16 @@ class Cinema {
         this.selectedSeat = []
     }
 
-    setSeats(seat, movieIndex) {
+    selectSeat(seat, index) {
         const seatIndex = this.seats.indexOf(seat)
-        seatIndex in this.movies[movieIndex].seats
-        ? this.movies[movieIndex].seats.splice(seatIndex, 1)
-        : this.movies[movieIndex].seats.splice(seatIndex, 0, seatIndex)
-    }
-
-    selectSeat(seat , movieIndex) {
-        this.setSeats(seat, movieIndex)
-        this.showSeats(movieIndex)
+        if (this.movies[index].seats.includes(seatIndex)) {
+            const indexPos = this.movies[index].seats.indexOf(seatIndex)
+            this.movies[index].seats.splice(indexPos, 1)
+        } 
+        else {
+            this.movies[index].seats.push(seatIndex)
+        }
+        this.showSeats(index)
     }
 
     showSeats(index) {
@@ -31,8 +31,8 @@ class Cinema {
             this.seats[spot].className = 'seat occupied'
         })
         this.updateSelection(this.movies[index].price)
-        
-        console.log(this.movies[index])
+        console.clear()
+        console.log(this.movies[index].seats)
     }
 
     updateSelection(price) {
