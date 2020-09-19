@@ -148,6 +148,7 @@ body {
         height: 27px;
         border-top-left-radius: 25px;
         border-top-right-radius: 25px;
+        margin: 6px;
     }
     .screen {
         height: 120px;

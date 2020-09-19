@@ -79,5 +79,9 @@ class Cinema {
         seats.forEach(seat => {
             seat.classList.remove('occupied')
         })
+
+        this.movies[index].occupiedSeats = []
+        this.movies[index].seats = []
+        this.showSeats(index)
     }
 }
