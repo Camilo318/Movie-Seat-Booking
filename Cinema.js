@@ -30,6 +30,8 @@ class Cinema {
         this.movies[index].seats.forEach(spot => {
             this.seats[spot].classList.add('selected')
         })
+        this.updateSelection(this.movies[index].price)
+
     }
 
     updateSelection(ticketPrice) {
