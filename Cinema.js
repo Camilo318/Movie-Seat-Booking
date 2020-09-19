@@ -46,7 +46,8 @@ class Cinema {
 
 
     buyTickets(index, selectedSeats, spots) {
-        const { name:movieTitle, price:ticketPrice, occupiedSeats } = this.movies[index]
+        const {name: movieTitle, price: ticketPrice, occupiedSeats: seats} = this.movies[index]
+        //What a object destructuring 😉
         if (spots > 0) {
             swal({
                 title: 'Confirm Movie And Payment',
@@ -61,10 +62,8 @@ class Cinema {
                     swal('Tickets Purchased!',
                     'Enjoy the movie 😃🍿',
                     'success')
-                    selectedSeats.forEach(seat => {
-                        seat.className = 'seat occupied'
-                    })
-                    occupiedSeats.push(...selectedSeats)
+                    seats.push(...selectedSeats)
+                    this.showSeats(index)
                     this.updateSelection(ticketPrice)
                 }
             })
@@ -75,11 +74,7 @@ class Cinema {
         }
     }
 
-    deleteSeats(seats, index) {
-        seats.forEach(seat => {
-            seat.classList.remove('occupied')
-        })
-
+    deleteSeats(index) {
         this.movies[index].occupiedSeats = []
         this.movies[index].seats = []
         this.showSeats(index)
