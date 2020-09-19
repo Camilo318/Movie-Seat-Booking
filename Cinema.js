@@ -20,6 +20,7 @@ class Cinema {
     selectSeat(seat , movieIndex) {
         seat.classList.toggle('selected')
         this.setSeats(seat, movieIndex)
+        this.updateSelection(this.movies[movieIndex].price)
     }
 
     showSeats(index) {
@@ -34,14 +35,15 @@ class Cinema {
 
     }
 
-    updateSelection(ticketPrice) {
+    updateSelection(price) {
         this.selectedSeats = document.querySelectorAll('.row .seat.selected')
         this.count.innerText = this.selectedSeats.length
-        this.total.innerText = '$' + this.selectedSeats.length * ticketPrice
+        this.total.innerText = '$' + this.selectedSeats.length * price
     }
 
 
-    buyTickets(movieTitle, selectedSeats, spots, ticketPrice) {
+    buyTickets(index, selectedSeats, spots) {
+        const { name:movieTitle, price:ticketPrice } = this.movies[index]
         if (spots > 0) {
             swal({
                 title: 'Confirm Movie And Payment',

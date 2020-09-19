@@ -15,29 +15,25 @@ function openCinema() {
 
     const cinema = new Cinema(movies, seats)
     const container = document.querySelector('.container')
-    let ticketPrice = +movieSelect.value
+
 
     //Detects clicks on the seats
     container.addEventListener('click', e => {
         if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
             cinema.selectSeat(e.target, movieSelect.selectedIndex)
-            cinema.updateSelection(ticketPrice)
         }
     })
     //Movie select event
     movieSelect.addEventListener('change', (e) => {
-        ticketPrice = e.target.value
-        cinema.updateSelection(ticketPrice)
         cinema.showSeats(movieSelect.selectedIndex)
     })
 
     //SWAL- Buying option
 
     buyBtn.addEventListener('click', () => {
-        const movieTitle = movieSelect[movieSelect.selectedIndex].dataset.name
         const selectedSeats = document.querySelectorAll('.row .seat.selected')
         const spots = selectedSeats.length
-        cinema.buyTickets(movieTitle, selectedSeats, spots, ticketPrice)
+        cinema.buyTickets(movieSelect.selectedIndex, selectedSeats, spots)
     })
 
     deleteBtn.addEventListener('click', () => {
