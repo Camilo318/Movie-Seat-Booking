@@ -9,6 +9,7 @@ class Cinema {
 
     selectSeat(seat, index) {
         const seatIndex = this.seats.indexOf(seat)
+        //Check if the clicked seat is already within the selected seats
         if (this.movies[index].seats.includes(seatIndex)) {
             const indexPos = this.movies[index].seats.indexOf(seatIndex)
             this.movies[index].seats.splice(indexPos, 1)
@@ -33,6 +34,7 @@ class Cinema {
         this.updateSelection(this.movies[index].price)
         console.clear()
         console.log(this.movies[index].seats)
+        // console.log(this.movies[index].occupiedSeats)
     }
 
     updateSelection(price) {
@@ -58,7 +60,9 @@ class Cinema {
                     swal('Tickets Purchased!',
                     'Enjoy the movie 😃🍿',
                     'success')
+                    //Add purchased seats to the array of occupied seats and then remove then from the selected seats array
                     this.movies[index].occupiedSeats.push(...seats)
+                    this.movies[index].seats = []
                     this.showSeats(index)
                 }
             })
