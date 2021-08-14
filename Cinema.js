@@ -46,32 +46,38 @@ class Cinema {
     this.total.innerText = '$' + this.selectedSeats.length * price
   }
 
-  buyTickets(movieIndex) {
+  async buyTickets(movieIndex) {
     const { name, price, seats } = this.movies[movieIndex]
     const spots = seats.length
     if (spots > 0) {
-      swal({
-        title: 'Confirm Movie And Payment',
-        text: `${name}
-                Spots: ${spots}
-                Total Payment: ${spots * price}`,
-        icon: 'warning',
-        buttons: true
-      }).then(value => {
-        if (value) {
-          swal(
-            'Tickets Purchased!',
-            'Enjoy the movie 😃🍿',
-            'success'
-          )
-          //Add purchased seats to the array of occupied seats and then remove then from the selected seats array
-          this.movies[movieIndex].occupiedSeats.push(...seats)
-          this.movies[movieIndex].seats = []
-          this.showSeats(movieIndex)
-        }
+      const alertResult = await Swal.fire({
+        titleText: 'Confirm Movie And Payment',
+        html: `<div><strong>Movie:</strong> ${name}</div>
+               <div><strong>Seats:</strong> ${spots} X $${price}</div>
+               <div><strong>Total Payment:</strong> $${
+                 spots * price
+               }</div>`,
+        icon: 'info',
+        showCancelButton: true,
+        reverseButtons: true
       })
+
+      if (alertResult.isConfirmed) {
+        await Swal.fire({
+          titleText: 'Tickets Purchased!',
+          text: 'Enjoy the movie 😃🍿',
+          icon: 'success'
+        })
+        this.movies[movieIndex].occupiedSeats.push(...seats)
+        this.movies[movieIndex].seats = []
+        this.showSeats(movieIndex)
+      }
     } else {
-      swal('No seats selected', 'Please select some seats', 'error')
+      Swal.fire({
+        titleText: 'No seats selected',
+        text: 'Please select some seats',
+        icon: 'error'
+      })
     }
   }
 
