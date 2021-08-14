@@ -14,13 +14,16 @@ class Cinema {
       const indexPos =
         this.movies[movieIndex].seats.indexOf(seatIndex)
       this.movies[movieIndex].seats.splice(indexPos, 1)
+      this.seats[seatIndex].classList.remove('selected')
     } else {
       this.movies[movieIndex].seats.push(seatIndex)
+      this.seats[seatIndex].classList.add('selected')
     }
-    this.showSeats(movieIndex)
+    // this.showSeats(movieIndex)
+    this.updateSelection(this.movies[movieIndex].price)
   }
 
-  // Re-paint all seats when movie changes
+  // Re-paint all seats when movie changes or tickets were bought
   showSeats(movieIndex) {
     this.seats.forEach(seat => {
       seat.classList.remove('selected')
@@ -33,9 +36,6 @@ class Cinema {
       this.seats[spot].className = 'seat occupied'
     })
     this.updateSelection(this.movies[movieIndex].price)
-    console.clear()
-    console.log(this.movies[movieIndex].seats)
-    // console.log(this.movies[index].occupiedSeats)
   }
 
   updateSelection(price) {
@@ -46,8 +46,8 @@ class Cinema {
     this.total.innerText = '$' + this.selectedSeats.length * price
   }
 
-  buyTickets(index) {
-    const { name, price, seats } = this.movies[index]
+  buyTickets(movieIndex) {
+    const { name, price, seats } = this.movies[movieIndex]
     const spots = seats.length
     if (spots > 0) {
       swal({
@@ -65,9 +65,9 @@ class Cinema {
             'success'
           )
           //Add purchased seats to the array of occupied seats and then remove then from the selected seats array
-          this.movies[index].occupiedSeats.push(...seats)
-          this.movies[index].seats = []
-          this.showSeats(index)
+          this.movies[movieIndex].occupiedSeats.push(...seats)
+          this.movies[movieIndex].seats = []
+          this.showSeats(movieIndex)
         }
       })
     } else {
@@ -75,9 +75,9 @@ class Cinema {
     }
   }
 
-  deleteSeats(index) {
-    this.movies[index].occupiedSeats = []
-    this.movies[index].seats = []
-    this.showSeats(index)
+  deleteSeats(movieIndex) {
+    this.movies[movieIndex].occupiedSeats = []
+    this.movies[movieIndex].seats = []
+    this.showSeats(movieIndex)
   }
 }
